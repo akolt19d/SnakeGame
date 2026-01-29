@@ -6,6 +6,38 @@ using System.Threading;
 class Program
 
 {
+    static Random randomnummer = new Random();
+    static List<int> teljePositie = new List<int>();
+    static int obstacleXpos;
+    static int obstacleYpos;
+    static int screenwidth = Console.WindowWidth;
+    static int screenheight = Console.WindowHeight;
+
+    static void PlaceObstacle()
+    {
+        int x = randomnummer.Next(1, screenwidth-1);
+        int y = randomnummer.Next(1, screenheight-1);
+
+        bool isTaken = false;
+        for (int i = 2; i < teljePositie.Count; i += 2)
+        {
+            if (x ==  teljePositie[i] && y == teljePositie[i+1])
+            {
+                isTaken = true; break;
+            }
+        }
+
+        if (isTaken)
+        {
+            PlaceObstacle();
+        }
+        else
+        {
+            obstacleXpos = x;
+            obstacleYpos = y;
+        }
+
+    }
 
     static void Main()
 
@@ -14,12 +46,6 @@ class Program
         Console.WindowHeight = 16;
 
         Console.WindowWidth = 32;
-
-        int screenwidth = Console.WindowWidth;
-
-        int screenheight = Console.WindowHeight;
-
-        Random randomnummer = new Random();
 
         string movement = "RIGHT";
 
@@ -35,12 +61,6 @@ class Program
 
         hoofd.schermKleur = ConsoleColor.Red;
 
-
-
-        List<int> teljePositie = new List<int>();
-
-
-
         teljePositie.Add(hoofd.xPos);
 
         teljePositie.Add(hoofd.yPos);
@@ -51,9 +71,7 @@ class Program
 
         string obstacle = "*";
 
-        int obstacleXpos = randomnummer.Next(1, screenwidth);
-
-        int obstacleYpos = randomnummer.Next(1, screenheight);
+        PlaceObstacle();
 
         while (true)
 
@@ -216,9 +234,7 @@ class Program
 
                 score++;
 
-                obstacleXpos = randomnummer.Next(1, screenwidth);
-
-                obstacleYpos = randomnummer.Next(1, screenheight);
+                PlaceObstacle();
 
                 tailExtended = true;
 
