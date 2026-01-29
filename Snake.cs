@@ -258,11 +258,11 @@ class Program
 
             }
 
-            for (int i = 0; i < telje.Count(); i += 2)
+            for (int i = 2; i < teljePositie.Count; i += 2)
 
             {
 
-                if (hoofd.xPos == telje[i] && hoofd.yPos == telje[i + 1])
+                if (hoofd.xPos == teljePositie[i] && hoofd.yPos == teljePositie[i + 1])
 
                 {
 
