@@ -127,13 +127,11 @@ class Program
 
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.Write("H");
-
-            for (int i = 0; i < telje.Count(); i++)
+            for (int i = 2; i < teljePositie.Count; i += 2)
 
             {
 
-                Console.SetCursorPosition(telje[i], telje[i + 1]);
+                Console.SetCursorPosition(teljePositie[i], teljePositie[i + 1]);
 
                 Console.Write("■");
 
@@ -211,6 +209,7 @@ class Program
 
             //Hindernis treffen
 
+            bool tailExtended = false;
             if (hoofd.xPos == obstacleXpos && hoofd.yPos == obstacleYpos)
 
             {
@@ -221,15 +220,19 @@ class Program
 
                 obstacleYpos = randomnummer.Next(1, screenheight);
 
+                tailExtended = true;
+
             }
 
             teljePositie.Insert(0, hoofd.xPos);
 
             teljePositie.Insert(1, hoofd.yPos);
 
-            teljePositie.RemoveAt(teljePositie.Count - 1);
-
-            teljePositie.RemoveAt(teljePositie.Count - 1);
+            if (!tailExtended)
+            {
+                teljePositie.RemoveAt(teljePositie.Count - 1);
+                teljePositie.RemoveAt(teljePositie.Count - 1);
+            }
 
             //Kollision mit Wände oder mit sich selbst
 
@@ -255,11 +258,11 @@ class Program
 
             }
 
-            for (int i = 0; i < telje.Count(); i += 2)
+            for (int i = 2; i < teljePositie.Count; i += 2)
 
             {
 
-                if (hoofd.xPos == telje[i] && hoofd.yPos == telje[i + 1])
+                if (hoofd.xPos == teljePositie[i] && hoofd.yPos == teljePositie[i + 1])
 
                 {
 
